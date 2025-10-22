@@ -5,9 +5,7 @@ interface Props {
   title?: string;
 }
 
-export function Component({
-  title
-}:Props={title:"tet"}) {
+export function Component({ title }: Props = { title: 'tet' }) {
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
@@ -15,7 +13,6 @@ export function Component({
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
           Mantine
         </Text>
-
         {title}
       </Title>
       <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">

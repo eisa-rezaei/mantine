@@ -1,13 +1,13 @@
-import { Toaster } from "components/pure-element/toaster";
-import { useEffect, useState } from "react";
-import { ReduxStoreModel } from "model/redux/redux-store-model";
-import Map, { Layer, LayerProps, Source } from "react-map-gl";
-import { useSelector } from "react-redux";
-import { AdvancedSearchService } from "service/advanced-search.service";
-import ToastComponent from "components/toast-view/toastGradient";
-import Pins from "./pins";
-import { FilterItemConfig } from "model/etc/filter-items-config.model";
-import { handleLog } from "tools/pure-function/log";
+import { useEffect, useState } from 'react';
+import { Toaster } from 'components/pure-element/toaster';
+import ToastComponent from 'components/toast-view/toastGradient';
+import { FilterItemConfig } from 'model/etc/filter-items-config.model';
+import { ReduxStoreModel } from 'model/redux/redux-store-model';
+import Map, { Layer, LayerProps, Source } from 'react-map-gl';
+import { useSelector } from 'react-redux';
+import { AdvancedSearchService } from 'service/advanced-search.service';
+import { handleLog } from 'tools/pure-function/log';
+import Pins from './pins';
 
 const TOKEN = `pk.eyJ1IjoibWF0aW5ub3JvenBvdXIiLCJhIjoiY2xhZjZyMzY1MTIxdDN2czQycjNsdXdxbyJ9.SAwQhE_inq9Syo1F3boUCA`;
 
@@ -20,12 +20,7 @@ interface StateMapProps {
   selectedFilterItems: Array<FilterItemConfig>;
   setMapData: any;
 }
-const StateMap = ({
-  desiredArea,
-  filter,
-  selectedFilterItems,
-  setMapData,
-}: StateMapProps) => {
+const StateMap = ({ desiredArea, filter, selectedFilterItems, setMapData }: StateMapProps) => {
   const searchRefactorJsonAdvanced = useSelector(
     (store: ReduxStoreModel) => store.searchRefactorJsonAdvanced
   );
@@ -46,23 +41,19 @@ const StateMap = ({
       });
       setlocationsData(res.data.map_data);
       setMapData(res.data.data);
-      let NewValue = "";
+      let NewValue = '';
       searchRefactorJsonAdvanced.words.data.map(
         (item) => (NewValue += `(${item.status}->${item.type}:${item.value})`)
       );
       handleLog({
-        FormName: "منطقه مورد نظر",
-        WorkStatus: "AdvanceSearch",
+        FormName: 'منطقه مورد نظر',
+        WorkStatus: 'AdvanceSearch',
         NewValue,
       });
     } catch (err: any) {
-      Toaster.error(
-        <ToastComponent
-          title={err.response.data.Error.message}
-          description={""}
-        />,
-        { toastId: "Platform-Data-Count" }
-      );
+      Toaster.error(<ToastComponent title={err.response.data.Error.message} description={''} />, {
+        toastId: 'Platform-Data-Count',
+      });
     }
   };
   useEffect(() => {
@@ -107,62 +98,54 @@ const StateMap = ({
 };
 
 const dataJson: any = {
-  type: "FeatureCollection",
+  type: 'FeatureCollection',
   crs: {
-    type: "name",
+    type: 'name',
     properties: {
-      name: "urn:ogc:def:crs:OGC:1.3:CRS84",
+      name: 'urn:ogc:def:crs:OGC:1.3:CRS84',
     },
   },
   features: [
     {
       geometry: {
-        type: "Point",
+        type: 'Point',
         coordinates: [-151.5129, 63.1016],
       },
     },
     {
       geometry: {
-        type: "Point",
+        type: 'Point',
         coordinates: [-151.4771, 63.0742],
       },
     },
     {
       geometry: {
-        type: "Point",
+        type: 'Point',
         coordinates: [-155.1268, 57.8123],
       },
     },
   ],
 };
 const clusterLayer: LayerProps = {
-  id: "clusters",
-  type: "circle",
-  source: "earthquakes",
-  filter: ["has", "point_count"],
+  id: 'clusters',
+  type: 'circle',
+  source: 'earthquakes',
+  filter: ['has', 'point_count'],
   paint: {
-    "circle-color": [
-      "step",
-      ["get", "point_count"],
-      "#51bbd6",
-      100,
-      "#f1f075",
-      750,
-      "#f28cb1",
-    ],
-    "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
+    'circle-color': ['step', ['get', 'point_count'], '#51bbd6', 100, '#f1f075', 750, '#f28cb1'],
+    'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 750, 40],
   },
 };
 const unclusteredPointLayer: LayerProps = {
-  id: "unclustered-point",
-  type: "circle",
-  source: "earthquakes",
-  filter: ["!", ["has", "point_count"]],
+  id: 'unclustered-point',
+  type: 'circle',
+  source: 'earthquakes',
+  filter: ['!', ['has', 'point_count']],
   paint: {
-    "circle-color": "#11b4da",
-    "circle-radius": 4,
-    "circle-stroke-width": 1,
-    "circle-stroke-color": "#fff",
+    'circle-color': '#11b4da',
+    'circle-radius': 4,
+    'circle-stroke-width': 1,
+    'circle-stroke-color': '#fff',
   },
 };
 export default StateMap;

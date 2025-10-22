@@ -19,6 +19,10 @@ export default withBundleAnalyzer({
         protocol: 'https',
         hostname: 'dkstatics-public.digikala.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.dummyjson.com',
+      },
     ],
   },
 });

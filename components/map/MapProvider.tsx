@@ -1,5 +1,5 @@
-import DisplayFilters from "./display-filters/DisplayFilters";
-import RegionSelectionMode from "./region-selection-mode/RegionSelectionMode";
+import DisplayFilters from './display-filters/DisplayFilters';
+import RegionSelectionMode from './region-selection-mode/RegionSelectionMode';
 
 interface MapProviderProps {
   children: JSX.Element;
